@@ -10,4 +10,4 @@ COPY index.html /usr/share/nginx/html/
 # Expose port 80 to allow external access
 EXPOSE 80
 
-Congratulations, You have successfully run your first pipeline code.
+Congratulations, You have successfully run your first pipeline code
