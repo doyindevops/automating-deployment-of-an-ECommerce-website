@@ -6,12 +6,6 @@ pipeline {
         DOCKER_IMAGE = 'nginx-ecommerce-site:latest'
     }
 
-    tools {
-        git 'Git'
-        // Ensure Docker is available in the environment 
-        // docker 'Docker'
-    }
-
     stages {
         stage('Fetch Code') {
             steps {
