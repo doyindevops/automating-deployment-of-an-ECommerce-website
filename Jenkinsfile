@@ -39,7 +39,7 @@ pipeline {
                     sshagent(['ubuntu']) {
                         // Copy necessary files to EC2
                         sh "scp -o StrictHostKeyChecking=no Dockerfile index.html ubuntu@${EC2_IP}:/home/ubuntu/"
-                        // Build Docker image on EC2
+                        // Build Docker image in EC2
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'docker build -t ${DOCKER_IMAGE} /home/ubuntu/'"
                     }
                 }
