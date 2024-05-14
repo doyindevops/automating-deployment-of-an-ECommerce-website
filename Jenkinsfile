@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        EC2_IP = '18.168.143.134'
+        EC2_IP = '18.175.78.222'
         DOCKER_IMAGE = 'nginx-ecommerce-site:latest'
     }
 
@@ -12,7 +12,7 @@ pipeline {
                 script {
                     echo "Pulling source code from Git"
                     retry(3) {
-                        git branch: 'main', url: 'https://github.com/doyindevops/automating-deployment-of-an-ECommerce-website.git'
+                        git branch: 'main', url: 'git@github.com:doyindevops/automating-deployment-of-an-ECommerce-website.git'
                     }
                 }
             }
