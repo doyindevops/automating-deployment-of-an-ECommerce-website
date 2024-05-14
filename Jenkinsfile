@@ -53,7 +53,7 @@ pipeline {
                     sshagent(['ubuntu']) {
                         // Copy the setup script securely to the remote server
                         sh "scp -o StrictHostKeyChecking=no websetup.sh ubuntu@${EC2_IP}:/home/ubuntu"
-                        // Execute the setup script remotely with proper error handling
+                        // Execute the setup script remotely with proper error handling.
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'bash ./websetup.sh'"
                     }
                 }
