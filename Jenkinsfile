@@ -8,7 +8,7 @@ pipeline {
 
     tools {
         git 'Git'
-        // Ensure Docker is available in the environment if building locally
+        // Ensure Docker is available in the environment 
         // docker 'Docker'
     }
 
