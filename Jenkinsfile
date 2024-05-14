@@ -12,7 +12,7 @@ pipeline {
                 script {
                     echo "Pulling source code from Git"
                     retry(3) {
-                        git branch: 'main', url: 'git@github.com:doyindevops/automating-deployment-of-an-ECommerce-website.git'
+                        git branch: 'main', url: 'https://github.com/doyindevops/automating-deployment-of-an-ECommerce-website.git'
                     }
                 }
             }
