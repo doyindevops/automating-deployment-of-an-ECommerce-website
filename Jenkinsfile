@@ -38,11 +38,11 @@ pipeline {
                     echo "Building Docker image on EC2 instance"
                     sshagent(['ec2-server']) {
                         // Ensure the directory exists and is ready for the Docker build
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'mkdir -p /home/ubuntu/automating-deployment-of-an-ECommerce-website/'"
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'mkdir -p /home/ubuntu/index.html Dockerfile"
                         // Copy necessary files to EC2
-                        sh "scp -o StrictHostKeyChecking=no index.html Dockerfile ubuntu@${EC2_IP}:/home/ubuntu/automating-deployment-of-an-ECommerce-website/"
+                        sh "scp -o StrictHostKeyChecking=no index.html Dockerfile ubuntu@${EC2_IP}:/home/ubuntu/index.html Dockerfile/"
                         // Build Docker image in EC2
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'docker build -t ${DOCKER_IMAGE} /home/ubuntu/automating-deployment-of-an-ECommerce-website'"
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'docker build -t ${DOCKER_IMAGE} /home/ubuntu/"
                     }
                 }
             }
