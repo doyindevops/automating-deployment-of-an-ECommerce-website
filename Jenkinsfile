@@ -43,16 +43,4 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            echo 'Cleaning up workspace post build...'
-            cleanWs()
-        }
-        success {
-            echo 'Deployment successful!'
-        }
-        failure {
-            echo 'Deployment failed. Check build logs for errors.'
-        }
-    }
-}
+    
