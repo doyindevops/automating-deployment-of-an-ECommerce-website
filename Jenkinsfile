@@ -24,9 +24,9 @@ pipeline {
             steps {
                 sshagent(credentials: ['jenkins-ssh-key']) {
                     // Copy entire workspace, including websetup.sh, to the web server
-                    sh 'scp -r . ubuntu@your-webserver-ip:/opt/myapp'
+                    sh 'scp -r . ubuntu@3.10.143.54:/opt/myapp'
                     // Run websetup.sh from within the deployment directory
-                    sh 'ssh ubuntu@your-webserver-ip "bash /opt/myapp/websetup.sh"'
+                    sh 'ssh ubuntu@3.10.143.54 "bash /opt/myapp/websetup.sh"'
                 }
             }
         }
