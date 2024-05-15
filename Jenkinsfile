@@ -3,38 +3,26 @@ pipeline {
 
     environment {
         EC2_IP = '18.132.47.75'
-        DOCKER_IMAGE = 'nginx-ecommerce-site:latest'
     }
 
     stages {
-        stage('Prepare Environment') {
+        stage ('fetch code') {
             steps {
                 script {
-                    echo "Preparing the EC2 environment for deployment."
-                    sshagent(['ec2-server']) {
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'mkdir -p /home/ubuntu'"
-                    }
+                    echo "Pull source code from Git"
+                    git branch: 'main', url: 'https://github.com/doyindevops/automating-deployment-of-an-ECommerce-website.git'
                 }
             }
         }
-
-        stage('Fetch Code') {
+        
+        stage ('deploy to EC2') {
             steps {
                 script {
-                    echo "Pulling source code from GitHub."
-                    retry(3) {
-                        git branch: 'main', url: 'https://github.com/doyindevops/automating-deployment-of-an-ECommerce-website.git'
-                    }
-                }
-            }
-        }
-
-        stage('Deploy to EC2') {
-            steps {
-                script {
-                    echo "Deploying Docker container on EC2."
-                    sshagent(['ec2-server']) {
-                        sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'docker run -d -p 80:80 ${DOCKER_IMAGE}'"
+                    echo "deploying to shell-script to ec2"
+                    def shellCmd = "bash ./websetup.sh"
+                    sshagent (['ec2-server']) {
+                        sh "scp -o StrictHostKeyChecking=no websetup.sh ubuntu@${EC2_IP}:/home/ubuntu"
+                        sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} ${shellCmd}"
                     }
                 }
             }
