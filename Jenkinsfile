@@ -11,7 +11,6 @@ pipeline {
             steps {
                 script {
                     echo "Preparing the EC2 environment for deployment."
-                    // Ensure the Docker working directory is ready
                     sshagent(['ec2-server']) {
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'mkdir -p /home/ubuntu'"
                     }
@@ -35,12 +34,10 @@ pipeline {
                 script {
                     echo "Deploying Docker container on EC2."
                     sshagent(['ec2-server']) {
-                        // Run Docker container
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'docker run -d -p 80:80 ${DOCKER_IMAGE}'"
                     }
                 }
             }
         }
     }
-
 }
