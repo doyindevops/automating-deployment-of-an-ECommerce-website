@@ -18,33 +18,29 @@ pipeline {
             }
         }
 
-        //stage('Install Docker on EC2') {
-            //steps {
-                //script {
-                    //echo "Installing Docker on EC2 instance"
-                    //sshagent(['ec2-server']) {
-                        // Copy the Docker installation script to the EC2 instance.
-                        //sh "scp -o StrictHostKeyChecking=no install_docker.sh ubuntu@${EC2_IP}:/home/ubuntu/"
-                        // Execute the Docker installation script
-                        //sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'bash ./install_docker.sh'"
-                    //}
-                //}
-            //}
-        //}
+        // Assuming Docker is already installed or handled externally
+        // Uncomment and adjust if Docker needs to be installed dynamically
+        // stage('Install Docker on EC2') {
+        //     steps {
+        //         script {
+        //             echo "Installing Docker on EC2 instance"
+        //             sshagent(['ec2-server']) {
+        //                 sh "scp -o StrictHostKeyChecking=no install_docker.sh ubuntu@${EC2_IP}:/home/ubuntu/"
+        //                 sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'bash ./install_docker.sh'"
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Build Docker Image on EC2') {
             steps {
                 script {
                     echo "Building Docker image on EC2 instance"
                     sshagent(['ec2-server']) {
+                        // Ensure the directory exists and is ready for the Docker build
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'mkdir -p /home/ubuntu/automating-deployment-of-an-ECommerce-website/'"
-
                         // Copy necessary files to EC2
-                        sh "scp -o StrictHostKeyChecking=no index.html ubuntu@${EC2_IP}:/home/ubuntu/automating-deployment-of-an-ECommerce-website/index.html"
-                        sh "scp -o StrictHostKeyChecking=no Dockerfile ubuntu@${EC2_IP}:/home/ubuntu/automating-deployment-of-an-ECommerce-website/Dockerfile"
-
-                        sh "scp -v -o StrictHostKeyChecking=no Dockerfile ubuntu@${EC2_IP}:/home/ubuntu/automating-deployment-of-an-ECommerce-website/Dockerfile"
-
+                        sh "scp -o StrictHostKeyChecking=no index.html Dockerfile ubuntu@${EC2_IP}:/home/ubuntu/automating-deployment-of-an-ECommerce-website/"
                         // Build Docker image in EC2
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'docker build -t ${DOCKER_IMAGE} /home/ubuntu/automating-deployment-of-an-ECommerce-website'"
                     }
@@ -58,8 +54,8 @@ pipeline {
                     echo "Deploying shell script to EC2 instance"
                     sshagent(['ec2-server']) {
                         // Copy the setup script securely to the remote server
-                        sh "scp -o StrictHostKeyChecking=no websetup.sh ubuntu@${EC2_IP}:/home/ubuntu"
-                        // Execute the setup script remotely with proper error handling.
+                        sh "scp -o StrictHostKeyChecking=no websetup.sh ubuntu@${EC2_IP}:/home/ubuntu/"
+                        // Execute the setup script remotely
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'bash ./websetup.sh'"
                     }
                 }
