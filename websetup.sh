@@ -12,8 +12,8 @@ echo
 echo "########################################"
 echo "Starting Artifact Deployment"
 echo "########################################"
-mkdir -p /tmp/webfiles
-cd /tmp/webfiles
+mkdir -p /tmp/websetup
+cd /tmp/websetup
 echo
 
 wget https://www.tooplate.com/zip-templates/2137_barista_cafe.zip > /dev/null
@@ -23,7 +23,7 @@ echo
 
 # Bounce Service
 echo "########################################"
-echo "Restarting Apache Webserver service"
+echo "Restarting Apache Websetup service"
 echo "########################################"
 sudo systemctl restart apache2
 echo
@@ -32,5 +32,5 @@ echo
 echo "########################################"
 echo "Removing Temporary Files"
 echo "########################################"
-sudo rm -rf /tmp/webfiles
+sudo rm -rf /tmp/websetup
 echo

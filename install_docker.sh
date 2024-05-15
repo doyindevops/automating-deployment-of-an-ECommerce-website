@@ -5,8 +5,8 @@ echo "Updating package database..."
 sudo apt-get update
 
 # Install Docker
-echo "Installing Docker..."
-sudo apt-get install -y docker.io
+#echo "Installing Docker..."
+#sudo apt-get install -y docker.io
 
 # Start and enable Docker
 echo "Starting and enabling Docker service..."
