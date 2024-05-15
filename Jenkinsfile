@@ -22,7 +22,7 @@ pipeline {
             steps {
                 script {
                     echo "Installing Docker on EC2 instance"
-                    sshagent(['ubuntu']) {
+                    sshagent(['ec2-server']) {
                         // Copy the Docker installation script to the EC2 instance.
                         sh "scp -o StrictHostKeyChecking=no install_docker.sh ubuntu@${EC2_IP}:/home/ubuntu/"
                         // Execute the Docker installation script
@@ -50,7 +50,7 @@ pipeline {
             steps {
                 script {
                     echo "Deploying shell script to EC2 instance"
-                    sshagent(['ubuntu']) {
+                    sshagent(['ec2-server']) {
                         // Copy the setup script securely to the remote server
                         sh "scp -o StrictHostKeyChecking=no websetup.sh ubuntu@${EC2_IP}:/home/ubuntu"
                         // Execute the setup script remotely with proper error handling.
