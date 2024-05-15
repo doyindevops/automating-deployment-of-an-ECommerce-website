@@ -38,7 +38,8 @@ pipeline {
                     echo "Building Docker image on EC2 instance"
                     sshagent(['ec2-server']) {
                         // Copy necessary files to EC2
-                        sh "scp -o StrictHostKeyChecking=no Dockerfile index.html ubuntu@${EC2_IP}:/home/ubuntu/"
+                        sh "scp -o StrictHostKeyChecking=no index.html ubuntu@${EC2_IP}:/home/ubuntu/"
+                        sh "scp -o StrictHostKeyChecking=no Dockerfile ubuntu@${EC2_IP}:/home/ubuntu/"
                         // Build Docker image in EC2
                         sh "ssh -o StrictHostKeyChecking=no ubuntu@${EC2_IP} 'docker build -t ${DOCKER_IMAGE} /home/ubuntu/'"
                     }
