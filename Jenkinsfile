@@ -5,7 +5,7 @@ pipeline {
     environment {
         EC2_IP = '18.132.47.75'
         DOCKER_IMAGE = 'nginx-ecommerce-site:latest'
-        WORK_DIR = '/home/doyin/automating-deployment-of-an-ECommerce-website'  // Adjust as per actual directory path
+        WORK_DIR = '/home/ubuntu/'  // Adjust as per actual directory path
     }
 
     stages {
