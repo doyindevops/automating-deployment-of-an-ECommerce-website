@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        EC2_IP = '18.175.78.222'
+        EC2_IP = '18.132.47.75'
         DOCKER_IMAGE = 'nginx-ecommerce-site:latest'
     }
 
@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docker image on EC2 instance"
-                    sshagent(['ubuntu']) {
+                    sshagent(['ec2-server']) {
                         // Copy necessary files to EC2
                         sh "scp -o StrictHostKeyChecking=no Dockerfile index.html ubuntu@${EC2_IP}:/home/ubuntu/"
                         // Build Docker image in EC2
